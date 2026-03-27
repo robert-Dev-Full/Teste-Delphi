@@ -55,7 +55,7 @@ begin
   try
     Qry.Connection := FConnection;
     Qry.SQL.Text :=
-      'SELECT NUMERO_PEDIDO, DATA_EMISSAO, CODIGO_CLIENTE, VALOR_TOTAL ' +
+      'SELECT NUMERO_PEDIDO, DATA_EMISSAO, CODIGO_CLIENTE, VALOR_TOTAL, OBSERVACAO ' +
       'FROM TBPEDIDO WHERE NUMERO_PEDIDO = :NUMERO';
 
     Qry.ParamByName('NUMERO').AsInteger := ANumero;
@@ -68,6 +68,7 @@ begin
       Result.DataEmissao := Qry.FieldByName('DATA_EMISSAO').AsDateTime;
       Result.CodigoCliente := Qry.FieldByName('CODIGO_CLIENTE').AsInteger;
       Result.ValorTotal := Qry.FieldByName('VALOR_TOTAL').AsCurrency;
+      Result.Observacao := Qry.FieldByName('OBSERVACAO').AsString;
     end;
 
   finally
@@ -85,13 +86,14 @@ begin
 
     Qry.SQL.Text :=
       'INSERT INTO TBPEDIDO ' +
-      '(NUMERO_PEDIDO, DATA_EMISSAO, CODIGO_CLIENTE, VALOR_TOTAL) ' +
-      'VALUES (:NUMERO, :DATA, :CLIENTE, :VALOR)';
+      '(NUMERO_PEDIDO, DATA_EMISSAO, CODIGO_CLIENTE, VALOR_TOTAL, OBSERVACAO) ' +
+      'VALUES (:NUMERO, :DATA, :CLIENTE, :VALOR, :OBSERVACAO)';
 
     Qry.ParamByName('NUMERO').AsInteger := APedido.NumeroPedido;
     Qry.ParamByName('DATA').AsDate := APedido.DataEmissao;
     Qry.ParamByName('CLIENTE').AsInteger := APedido.CodigoCliente;
     Qry.ParamByName('VALOR').AsCurrency := APedido.ValorTotal;
+    Qry.ParamByName('OBSERVACAO').AsString := APedido.Observacao;
 
     Qry.ExecSQL;
   finally

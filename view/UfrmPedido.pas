@@ -50,6 +50,8 @@ type
     edtTotalPedido: TEdit;
     btnFinalizar: TBitBtn;
     btnLimpar: TBitBtn;
+    Label9: TLabel;
+    memoObs: TMemo;
     procedure FormCreate(Sender: TObject);
     procedure edtCodigoClienteExit(Sender: TObject);
     procedure edtCodProdutoExit(Sender: TObject);
@@ -146,10 +148,8 @@ var
   Separador: Char;
 begin
   Separador := FormatSettings.DecimalSeparator;
-
   if not (Key in ['0'..'9', Separador, #8]) then
     Key := #0;
-
   if (Key = Separador) and (Pos(Separador, TEdit(Sender).Text) > 0) then
     Key := #0;
 end;
@@ -181,18 +181,14 @@ var
   Numero: Integer;
 begin
   NumeroStr := InputBox('Abrir Pedido', 'Informe o número do pedido:', '');
-
   if NumeroStr = '' then
     Exit;
-
   Numero := StrToIntDef(NumeroStr, 0);
-
   if Numero <= 0 then
   begin
     ShowMessage('Número inválido');
     Exit;
   end;
-
   CarregarPedido(Numero);
   CarregarProdutos;
 end;
@@ -244,6 +240,7 @@ begin
   try
     Pedido.CodigoCliente := StrToInt(edtCodigoCliente.Text);
     Pedido.ValorTotal := 0;
+    Pedido.Observacao := memoObs.Text;
     FPedidoController.Inserir(Pedido);
     edtNumPedido.Text := Pedido.NumeroPedido.ToString;
     ShowMessage('Pedido criado com sucesso');
@@ -300,8 +297,8 @@ end;
 procedure TfrmPedido.btnVisualizarPedidoClick(Sender: TObject);
 begin
   AbrirPedidoPorNumero;
-  btnInserirProduto.Enabled := True;
-  btnFinalizar.Enabled := True;
+  btnInserirProduto.Enabled := False;
+  btnFinalizar.Enabled := False;
   btnLimpar.Enabled := True;
   btnVisualizarPedido.Enabled := False;
 end;
@@ -316,8 +313,6 @@ begin
     qryItens.FieldByName('QUANTIDADE').AsString;
   edtPreco.Text :=
     qryItens.FieldByName('VLR_UNITARIO').AsString;
-  {edtTotal.Text :=
-    qryItens.FieldByName('VLR_TOTAL').AsString;  }
   edtQtd.SetFocus;
 end;
 
@@ -330,8 +325,7 @@ begin
     edtCodigoCliente.Text := Pedido.CodigoCliente.ToString;
     edtCodigoClienteExit(Self);
     edtNumPedido.Text := Pedido.NumeroPedido.ToString;
-    {edtData.Text := DateToStr(Pedido.DataEmissao);
-    edtTotal.Text := CurrToStr(Pedido.ValorTotal); }
+    memoObs.Text := Pedido.Observacao;
   finally
     Pedido.Free;
   end;
@@ -396,11 +390,8 @@ begin
     Cliente.Free;
   end;
 
-  if edtNumPedido.Text <> '' then
-  begin
-    btnIniciarPedido.Enabled := True;
-    btnVisualizarPedido.Enabled := False;
-  end;
+  btnIniciarPedido.Enabled := True;
+  btnVisualizarPedido.Enabled := False;
 end;
 
 procedure TfrmPedido.edtCodigoClienteKeyPress(Sender: TObject; var Key: Char);
