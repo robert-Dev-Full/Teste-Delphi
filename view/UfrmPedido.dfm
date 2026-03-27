@@ -21,7 +21,7 @@ object frmPedido: TfrmPedido
     Left = 0
     Top = 0
     Width = 1052
-    Height = 60
+    Height = 96
     Align = alTop
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
@@ -30,7 +30,6 @@ object frmPedido: TfrmPedido
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 0
-    ExplicitWidth = 996
     object Label1: TLabel
       Left = 16
       Top = 23
@@ -58,6 +57,13 @@ object frmPedido: TfrmPedido
       Width = 46
       Height = 14
       Caption = 'Pedido:'
+    end
+    object Label9: TLabel
+      Left = 33
+      Top = 51
+      Width = 29
+      Height = 14
+      Caption = 'OBS:'
     end
     object edtCodigoCliente: TEdit
       Left = 68
@@ -123,7 +129,7 @@ object frmPedido: TfrmPedido
       Height = 35
       Caption = 'Confirmar'
       Enabled = False
-      TabOrder = 4
+      TabOrder = 6
       OnClick = btnIniciarPedidoClick
     end
     object edtNumPedido: TEdit
@@ -140,7 +146,7 @@ object frmPedido: TfrmPedido
       Font.Style = [fsBold]
       ParentFont = False
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 4
     end
     object btnVisualizarPedido: TBitBtn
       Left = 852
@@ -148,7 +154,7 @@ object frmPedido: TfrmPedido
       Width = 87
       Height = 35
       Caption = 'Abrir Pedido'
-      TabOrder = 6
+      TabOrder = 7
       OnClick = btnVisualizarPedidoClick
     end
     object btnLimpar: TBitBtn
@@ -158,13 +164,20 @@ object frmPedido: TfrmPedido
       Height = 35
       Caption = 'Limpar'
       Enabled = False
-      TabOrder = 7
+      TabOrder = 8
       OnClick = btnLimparClick
+    end
+    object memoObs: TMemo
+      Left = 68
+      Top = 48
+      Width = 705
+      Height = 42
+      TabOrder = 5
     end
   end
   object pnlProduto: TPanel
     Left = 0
-    Top = 60
+    Top = 96
     Width = 1052
     Height = 41
     Align = alTop
@@ -175,7 +188,6 @@ object frmPedido: TfrmPedido
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 1
-    ExplicitTop = 66
     object Label4: TLabel
       Left = 7
       Top = 12
@@ -238,12 +250,12 @@ object frmPedido: TfrmPedido
     end
     object btnInserirProduto: TBitBtn
       Left = 591
-      Top = 3
+      Top = 1
       Width = 113
       Height = 35
       Caption = 'Confirmar'
       Enabled = False
-      TabOrder = 3
+      TabOrder = 4
       OnClick = btnInserirProdutoClick
     end
     object edtQtd: TEdit
@@ -251,7 +263,7 @@ object frmPedido: TfrmPedido
       Top = 10
       Width = 45
       Height = 22
-      TabOrder = 4
+      TabOrder = 3
       OnExit = edtCodigoClienteExit
       OnKeyDown = edtQtdKeyDown
       OnKeyPress = edtQtdKeyPress
@@ -270,7 +282,6 @@ object frmPedido: TfrmPedido
     Font.Style = [fsBold]
     ParentFont = False
     TabOrder = 2
-    ExplicitWidth = 996
     object Label8: TLabel
       Left = 823
       Top = 9
@@ -306,17 +317,16 @@ object frmPedido: TfrmPedido
   end
   object pnlItens: TPanel
     Left = 0
-    Top = 101
+    Top = 137
     Width = 1052
-    Height = 464
+    Height = 428
     Align = alClient
     TabOrder = 3
-    ExplicitWidth = 996
     object dbgProdutos: TDBGrid
       Left = 1
       Top = 1
       Width = 1050
-      Height = 462
+      Height = 426
       Align = alClient
       DataSource = dsItens
       TabOrder = 0
