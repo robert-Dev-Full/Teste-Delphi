@@ -446,9 +446,9 @@ end;
 
 function TfrmPedido.TotalPedido: Currency;
 var
-  FTotal: Currency;
+  nTotalPedido: Currency;
 begin
-  FTotal := 0;
+  nTotalPedido := 0;
 
   qryItens.DisableControls;
 
@@ -457,7 +457,7 @@ begin
 
     while not qryItens.Eof do
     begin
-      FTotal := FTotal + qryItens.FieldByName('VLR_TOTAL').AsFloat;
+      nTotalPedido := nTotalPedido + qryItens.FieldByName('VLR_TOTAL').AsFloat;
 
       qryItens.Next;
     end;
@@ -465,7 +465,7 @@ begin
     qryItens.EnableControls;
   end;
 
-  Result := FTotal;
+  Result := nTotalPedido;
 end;
 
 procedure TfrmPedido.ValidacoesProduto;
