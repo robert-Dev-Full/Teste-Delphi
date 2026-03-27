@@ -277,6 +277,7 @@ procedure TfrmPedido.btnLimparClick(Sender: TObject);
 begin
   btnLimpar.Enabled := False;
   btnVisualizarPedido.Enabled := True;
+  btnInserirProduto.Enabled := False;
 
   qryItens.Close;
 
